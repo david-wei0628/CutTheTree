@@ -36,18 +36,17 @@ class Result
         //    sum2 = sum2 + data[i];
         //}
 
-        for(int i=0;i<data.Count;i++)
+        for (int i = 0; i < edges.Count; i++)
         {
-            for(int j=0;j<edges.Count;j++)
-            {
-                if(edges[j][1] == i+1)
-                    a[i] = edges[j][0];
-            }
+            if(a[edges[i][1] - 1] ==0)
+                a[edges[i][1] - 1] = edges[i][0];
+            else
+                a[edges[i][0] -1] = edges[i][1];
         }
 
         for (int i = 0; i < data.Count; i++)
         {
-            Console.WriteLine((i+1)+" " +a[i]);
+            Console.WriteLine((i + 1) + " " + a[i]);
         }
 
         //for (int i = 1; i < data.Count; i++)
