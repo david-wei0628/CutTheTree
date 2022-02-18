@@ -20,7 +20,7 @@ class Result
         int[] b = new int[data.Count];
         int treediff = data.Max();
         int sum = 0;
-        int sum2 = data[0];
+        int sum2 =  data.Sum();
         int sum3;
         int sumsub = 0;
         //a[0] = edges[0][0];
@@ -38,17 +38,17 @@ class Result
 
         for (int i = 0; i < edges.Count; i++)
         {
-            if(a[edges[i][1] - 1] ==0)
+            if (a[edges[i][1] - 1] == 0)
+            {
                 a[edges[i][1] - 1] = edges[i][0];
+                
+            }
             else
-                a[edges[i][0] -1] = edges[i][1];
-        }
+            {
+                a[edges[i][0] - 1] = edges[i][1];
 
-        for (int i = 0; i < data.Count; i++)
-        {
-            Console.WriteLine((i + 1) + " " + a[i]);
+            }
         }
-
         //for (int i = 1; i < data.Count; i++)
         //{
         //    sum3 = 0;
@@ -59,7 +59,28 @@ class Result
         //    sum = Math.Abs(sum2 - sum3);
         //    b[i - 1] = Math.Abs(sum - sum3);
         //}
-        //sumsub = b.Min();
+
+        for (int i = 0; i < data.Count; i++)
+        {
+
+            //Console.WriteLine(i+1 + " " + a[i]+ " " + data[i]); 
+            sum3 = 0;
+            int k = i;
+            Console.Write((i+1) + " " );
+            while (a[k] >= 0)
+            {
+                sum3 = sum3 + data[k];
+                Console.Write(data[k] + " " + (k - 1) + "   ");
+                k = a[k] - 1;
+                if (k < 0)
+                    break;
+            }
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            sum = Math.Abs(sum2 - sum3);
+            b[i] = Math.Abs(sum - sum3);
+        }
+        sumsub = b.Min();
         return sumsub;
     }
 
