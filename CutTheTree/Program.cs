@@ -14,12 +14,13 @@ using System;
 
 class Result
 {
+    public static Dictionary<int, int> sums = new Dictionary<int, int>();
+
     public static int cutTheTree(List<int> data, List<List<int>> edges)
     {
         int[] a = new int[data.Count];
         int[] b = new int[data.Count];
         int[] c = new int[data.Count];
-        int treediff = data.Min();
         int sum;
         int sum2 =  data.Sum();
         int sum3;
@@ -60,27 +61,41 @@ class Result
         //    sum = Math.Abs(sum2 - sum3);
         //    b[i - 1] = Math.Abs(sum - sum3);
         //}
-
-
-
-        for (int i = 0; i < data.Count; i++)
+        if(c.Max()>1)
         {
-            sum3 = 0;
-            int k = i;
-            while (k >= 0 && c[k] != 0)
+            for(int i=0;i<c.Max();i++)
             {
-                sum3 = sum3 + data[k];
-                Console.Write(k + 1 + " ");
-                k = a[k] - 1;
+                for (int j = 0; j < data.Count;j++)
+                {
+                    if(c[j] == i)
+                    {
+
+                    }
+                }
             }
-            Console.WriteLine();
-            sum = Math.Abs(sum2 - sum3);
-            b[i] = Math.Abs(sum - sum3);
         }
+        else
+        {
+            for (int i = 0; i < data.Count; i++)
+            {
+                sum3 = 0;
+                int k = i;  
+                while (k >= 0)
+                {
+                   sum3 = sum3 + data[k];
+                   k = a[k] - 1;   
+                }
+                 sum = Math.Abs(sum2 - sum3);
+                 b[i] = Math.Abs(sum - sum3);
+             }
+        }
+        
 
         sumsub = b.Min();
         return sumsub;
     }
+
+   
 }
 
 class Solution
@@ -92,7 +107,7 @@ class Solution
         int n = Convert.ToInt32(Console.ReadLine().Trim());
 
         List<int> data = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(dataTemp => Convert.ToInt32(dataTemp)).ToList();
-        Console.WriteLine(data.Count);
+
         List<List<int>> edges = new List<List<int>>();
 
         for (int i = 0; i < n - 1; i++)
