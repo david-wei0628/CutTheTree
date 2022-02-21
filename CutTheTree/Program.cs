@@ -18,13 +18,13 @@ class Result
     {
         int[] a = new int[data.Count];
         int[] b = new int[data.Count];
-        int treediff = data.Max();
-        int sum = 0;
+        int[] c = new int[data.Count];
+        int treediff = data.Min();
+        int sum;
         int sum2 =  data.Sum();
         int sum3;
-        int sumsub = 0;
+        int sumsub;
         //a[0] = edges[0][0];
-
         //for (int i = 1; i < data.Count; i++)
         //{
         //    a[i] = edges[sum][1];
@@ -35,20 +35,21 @@ class Result
         //    }
         //    sum2 = sum2 + data[i];
         //}
-
+        //Console.WriteLine(edges.Count + " " + data.Count);
         for (int i = 0; i < edges.Count; i++)
         {
             if (a[edges[i][1] - 1] == 0)
             {
                 a[edges[i][1] - 1] = edges[i][0];
-                
+                c[a[edges[i][1] - 1]-1]++;
             }
             else
             {
                 a[edges[i][0] - 1] = edges[i][1];
-
+                c[a[edges[i][0] - 1]-1]++;
             }
         }
+
         //for (int i = 1; i < data.Count; i++)
         //{
         //    sum3 = 0;
@@ -60,30 +61,26 @@ class Result
         //    b[i - 1] = Math.Abs(sum - sum3);
         //}
 
+
+
         for (int i = 0; i < data.Count; i++)
         {
-
-            //Console.WriteLine(i+1 + " " + a[i]+ " " + data[i]); 
             sum3 = 0;
             int k = i;
-            Console.Write((i+1) + " " );
-            while (a[k] >= 0)
+            while (k >= 0 && c[k] != 0)
             {
                 sum3 = sum3 + data[k];
-                Console.Write(data[k] + " " + (k - 1) + "   ");
+                Console.Write(k + 1 + " ");
                 k = a[k] - 1;
-                if (k < 0)
-                    break;
             }
-            Console.WriteLine(" ");
-            Console.WriteLine(" ");
+            Console.WriteLine();
             sum = Math.Abs(sum2 - sum3);
             b[i] = Math.Abs(sum - sum3);
         }
+
         sumsub = b.Min();
         return sumsub;
     }
-
 }
 
 class Solution
@@ -95,7 +92,7 @@ class Solution
         int n = Convert.ToInt32(Console.ReadLine().Trim());
 
         List<int> data = Console.ReadLine().TrimEnd().Split(' ').ToList().Select(dataTemp => Convert.ToInt32(dataTemp)).ToList();
-
+        Console.WriteLine(data.Count);
         List<List<int>> edges = new List<List<int>>();
 
         for (int i = 0; i < n - 1; i++)
@@ -104,7 +101,6 @@ class Solution
         }
 
         int result = Result.cutTheTree(data, edges);
-
         Console.WriteLine(result);
         Console.ReadKey();
         //textWriter.Flush();
